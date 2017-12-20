@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>zuoye</title>
+</head>
+<style>
+	canvas{
+		border: 1px solid #000;
+	}
+	div{
+		width: 100px;
+		height: 30px;
+		text-align: center;
+		border: 1px solid #000;
+	}
+</style>
+<body>
+	<canvas width="400" height="400">
+		替换内容
+	</canvas>
+	<canvas width="400" height="400">
+		替换内容
+	</canvas>
+
+	<div id="button">
+		<button>0</button>分
+		<button>0</button>秒
+	</div>
+	
+</div>
+</body>
+</html>
+<script src="function.js"></script>
+<!-- 多边形 -->
+<script>
+	let canvas = document.querySelector("canvas");
+	let ctx = canvas.getContext('2d');
+	function draw(x,y,n,r){
+  		var i,ang;
+  		ang= Math.PI*2/n;
+ 		ctx.save();
+ 		ctx.fillStyle = 'rgba(255,0,0,.3)';
+ 		ctx.strokeStyle = 'hsl(120,50%,50%)';
+ 		ctx.lineWidth = 1;
+ 		ctx.translate(x,y);
+ 		ctx.moveTo(0,-r);
+ 		ctx.beginPath();
+		for(i=0;i<n;i++){
+			ctx.rotate(ang);
+			ctx.lineTo(0,-r);
+		}
+		ctx.closePath();
+		ctx.fill();
+		ctx.stroke();
+		ctx.restore();
+	}
+		draw(250,250,6,50); 
+</script>
+<!-- 倒计时 -->
+<script>
+	var x = 10,
+    interval;
+    window.onload = function(){
+        var d = new Date("2017/12/25,0:" + x + ":0");
+        interval = setInterval(function(){
+            var m = d.getMinutes();
+            var s = d.getSeconds();
+            m = m < 10 ? "0" + m : m;
+            s = s < 10 ? "0" + s : s;
+            button.innerHTML = m + ":" + s;
+            if(m == 0 && s == 0){
+                clearInterval(interval);
+                return;
+            }
+            d.setSeconds(s - 1);
+        },1000);
+    }
+</script>
+<!-- 百分比 -->
+<script>
+	let c = document.querySelectorAll('canvas');
+
+	let can6 = c[1].getContext("2d");
+	let a = 1
+	let t = setInterval(move,100);
+	function move(){
+		let p = Math.PI*2/100;
+		a++;
+		can6.beginPath();
+		can6.moveTo(250, 200);
+		can6.arc(150,200,100,0,p*a)
+		can6.clearRect(0,0,300,400)
+		can6.stroke();
+		
+		can6.fillText(a+'%',135,200)
+		
+		if(a>=100){
+			a=99;
+		}
+		
+	}
+</script>
